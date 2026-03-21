@@ -7,8 +7,8 @@ export async function GET() {
 
   return Response.json(
     {
-      googleAnalyticsId: env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? "",
-      clarityProjectId: env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? "",
+      googleAnalyticsId: env.GOOGLE_ANALYTICS_ID ?? env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? "",
+      clarityProjectId: env.CLARITY_PROJECT_ID ?? env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? "",
     },
     {
       headers: {
