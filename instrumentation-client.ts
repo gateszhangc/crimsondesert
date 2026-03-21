@@ -101,15 +101,33 @@ const clarityProjectId = normalizeAnalyticsValue(
   process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? fallbackClarityProjectId,
 );
 
-if (!(window as AnalyticsWindow).__siteAnalyticsInitialized) {
+function initSiteAnalytics() {
   initGoogleAnalytics(googleAnalyticsId);
   initClarity(clarityProjectId);
 
+  setDocumentMarker("data-site-analytics-error", undefined);
   setDocumentMarker("data-site-analytics-ready", "true");
   setDocumentMarker("data-site-analytics-ga", googleAnalyticsId);
   setDocumentMarker("data-site-analytics-clarity", clarityProjectId);
+}
 
-  (window as AnalyticsWindow).__siteAnalyticsInitialized = true;
+const analyticsWindow = window as AnalyticsWindow;
+
+if (!analyticsWindow.__siteAnalyticsInitialized) {
+  try {
+    initSiteAnalytics();
+    analyticsWindow.__siteAnalyticsInitialized = true;
+  } catch (error) {
+    setDocumentMarker("data-site-analytics-ready", undefined);
+    setDocumentMarker("data-site-analytics-ga", undefined);
+    setDocumentMarker("data-site-analytics-clarity", undefined);
+    setDocumentMarker(
+      "data-site-analytics-error",
+      error instanceof Error ? error.message : "analytics-init-failed",
+    );
+
+    console.error("Failed to initialize site analytics", error);
+  }
 }
 
 export function onRouterTransitionStart(url: string) {

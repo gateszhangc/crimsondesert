@@ -59,6 +59,7 @@ const url = `${baseUrl}/`;
         doc.getAttribute("data-site-analytics-ready") === "true" &&
         doc.getAttribute("data-site-analytics-ga") === expectedGaId &&
         doc.getAttribute("data-site-analytics-clarity") === expectedClarityId &&
+        !doc.getAttribute("data-site-analytics-error") &&
         Boolean(gaScript) &&
         Boolean(clarityScript) &&
         typeof analyticsWindow.gtag === "function" &&
@@ -88,6 +89,7 @@ const url = `${baseUrl}/`;
     finalUrl: window.location.href,
     gaAttr: document.documentElement.getAttribute("data-site-analytics-ga"),
     clarityAttr: document.documentElement.getAttribute("data-site-analytics-clarity"),
+    errorAttr: document.documentElement.getAttribute("data-site-analytics-error"),
     hasGaScript: Boolean(document.getElementById("google-analytics-src")),
     hasClarityScript: Boolean(document.getElementById("microsoft-clarity-loader")),
     hasGtag: typeof window.gtag === "function",
