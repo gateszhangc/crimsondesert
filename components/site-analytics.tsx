@@ -1,5 +1,8 @@
 import Script from "next/script";
 
+const fallbackGoogleAnalyticsId = "G-24VRN90T3K";
+const fallbackClarityProjectId = "vunjltc3xv";
+
 function normalizeAnalyticsValue(value: string | undefined) {
   const normalized = value?.trim();
 
@@ -15,8 +18,12 @@ function normalizeAnalyticsValue(value: string | undefined) {
 }
 
 export function SiteAnalytics() {
-  const googleAnalyticsId = normalizeAnalyticsValue(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID);
-  const clarityProjectId = normalizeAnalyticsValue(process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID);
+  const googleAnalyticsId = normalizeAnalyticsValue(
+    process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? fallbackGoogleAnalyticsId,
+  );
+  const clarityProjectId = normalizeAnalyticsValue(
+    process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? fallbackClarityProjectId,
+  );
 
   return (
     <>
