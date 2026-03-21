@@ -9,9 +9,8 @@ import { getAllPageSummaries, formatDisplayDate } from "@/lib/content";
 import { getSourceTitle, homeFaq, keyFacts, quickStartLinks, siteConfig, sourceHighlights } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Crimson Desert Release Date, Platforms, Gameplay and FAQ",
-  description:
-    "Independent Crimson Desert guide covering the confirmed release date, platform list, system requirements, gameplay breakdown, cast notes, and official launch FAQ.",
+  title: siteConfig.homeTitle,
+  description: siteConfig.homeDescription,
 };
 
 const sectionShell = "mx-auto w-full max-w-6xl px-6 lg:px-8";
@@ -25,7 +24,7 @@ export default async function HomePage() {
     name: siteConfig.name,
     url: siteConfig.url,
     description: siteConfig.description,
-    inLanguage: "en-US",
+    inLanguage: siteConfig.language,
   };
 
   const videoGameSchema = {

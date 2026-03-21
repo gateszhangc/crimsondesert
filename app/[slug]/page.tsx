@@ -27,23 +27,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: page.title,
-    description: page.description,
+    title: page.seoTitle,
+    description: page.seoDescription,
     alternates: {
       canonical: `/${page.slug}`,
     },
     keywords: [...siteConfig.defaultKeywords, page.intentKeyword],
     openGraph: {
       type: "article",
-      title: page.title,
-      description: page.description,
+      title: page.ogTitle ?? page.seoTitle,
+      description: page.ogDescription ?? page.seoDescription,
       url: `${siteConfig.url}/${page.slug}`,
+      siteName: siteConfig.name,
+      locale: siteConfig.locale,
+      publishedTime: `${page.publishedAt}T00:00:00Z`,
+      modifiedTime: `${page.updatedAt}T00:00:00Z`,
       images: ["/opengraph-image"],
     },
     twitter: {
       card: "summary_large_image",
-      title: page.title,
-      description: page.description,
+      title: page.ogTitle ?? page.seoTitle,
+      description: page.ogDescription ?? page.seoDescription,
       images: ["/opengraph-image"],
     },
   };
