@@ -22,6 +22,12 @@ export const siteConfig = {
   name: siteName,
   domain: new URL(siteUrl).hostname,
   url: siteUrl,
+  language: "en-US",
+  locale: "en_US",
+  category: "games",
+  homeTitle: "Crimson Desert Release Date, Platforms, Gameplay and FAQ",
+  homeDescription:
+    "Independent Crimson Desert guide covering the confirmed release date, platform list, system requirements, gameplay breakdown, cast notes, and official launch FAQ.",
   description:
     "Independent, source-backed guide to Crimson Desert covering the release date, platforms, gameplay, characters, system requirements, and official FAQ.",
   updatedAt: "2026-03-21",

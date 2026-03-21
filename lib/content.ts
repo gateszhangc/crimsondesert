@@ -17,11 +17,16 @@ export type FaqItem = {
 export type PageFrontmatter = {
   title: string;
   description: string;
+  seoTitle: string;
+  seoDescription: string;
   slug: string;
+  publishedAt: string;
   updatedAt: string;
   intentKeyword: string;
   heroImage: string;
   sourceUrls: string[];
+  ogTitle?: string;
+  ogDescription?: string;
   faq?: FaqItem[];
 };
 
@@ -37,6 +42,24 @@ function assertString(value: unknown, field: string, slugHint: string) {
   }
 
   return value.trim();
+}
+
+function assertOptionalString(value: unknown, field: string, slugHint: string) {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  return assertString(value, field, slugHint);
+}
+
+function assertDateString(value: unknown, field: string, slugHint: string) {
+  const date = assertString(value, field, slugHint);
+
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || Number.isNaN(Date.parse(`${date}T00:00:00Z`))) {
+    throw new Error(`Expected "${field}" to be a YYYY-MM-DD string in ${slugHint}.`);
+  }
+
+  return date;
 }
 
 function assertStringArray(value: unknown, field: string, slugHint: string) {
@@ -74,11 +97,16 @@ function parseFrontmatter(data: Record<string, unknown>, slugHint: string): Page
   return {
     title: assertString(data.title, "title", slugHint),
     description: assertString(data.description, "description", slugHint),
+    seoTitle: assertString(data.seoTitle, "seoTitle", slugHint),
+    seoDescription: assertString(data.seoDescription, "seoDescription", slugHint),
     slug,
-    updatedAt: assertString(data.updatedAt, "updatedAt", slugHint),
+    publishedAt: assertDateString(data.publishedAt, "publishedAt", slugHint),
+    updatedAt: assertDateString(data.updatedAt, "updatedAt", slugHint),
     intentKeyword: assertString(data.intentKeyword, "intentKeyword", slugHint),
     heroImage: assertString(data.heroImage, "heroImage", slugHint),
     sourceUrls: assertStringArray(data.sourceUrls, "sourceUrls", slugHint),
+    ogTitle: assertOptionalString(data.ogTitle, "ogTitle", slugHint),
+    ogDescription: assertOptionalString(data.ogDescription, "ogDescription", slugHint),
     faq: assertFaqArray(data.faq, slugHint),
   };
 }
@@ -112,6 +140,11 @@ export const getAllPageSummaries = cache(async (): Promise<PageFrontmatter[]> =>
   );
 
   return sortPages(pages);
+});
+
+export const getPageSummaryBySlug = cache(async (slug: string): Promise<PageFrontmatter | null> => {
+  const pages = await getAllPageSummaries();
+  return pages.find((page) => page.slug === slug) ?? null;
 });
 
 export const getPageBySlug = cache(async (slug: string): Promise<PageEntry | null> => {
