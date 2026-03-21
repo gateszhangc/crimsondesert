@@ -59,12 +59,9 @@ export function SiteAnalytics() {
   const googleAnalyticsId = config?.googleAnalyticsId;
   const clarityProjectId = config?.clarityProjectId;
 
-  if (!googleAnalyticsId && !clarityProjectId) {
-    return null;
-  }
-
   return (
     <>
+      <span hidden aria-hidden="true" data-site-analytics-root="" />
       {googleAnalyticsId ? (
         <>
           <Script
