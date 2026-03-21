@@ -1,6 +1,4 @@
-import Script from "next/script";
-
-const fallbackGoogleAnalyticsId = "G-24VRN90T3K";
+const fallbackGoogleAnalyticsId = "G-TD5HH2DCJL";
 const fallbackClarityProjectId = "vunjltc3xv";
 
 function normalizeAnalyticsValue(value: string | undefined) {
@@ -30,27 +28,34 @@ export function SiteAnalytics() {
       <span hidden aria-hidden="true" data-site-analytics-root="" />
       {googleAnalyticsId ? (
         <>
-          <Script
+          <script
+            async
+            id="google-analytics-src"
             src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
-            strategy="afterInteractive"
           />
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`window.dataLayer = window.dataLayer || [];
+          <script
+            id="google-analytics"
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', '${googleAnalyticsId}');`}
-          </Script>
+gtag('config', '${googleAnalyticsId}');`,
+            }}
+          />
         </>
       ) : null}
 
       {clarityProjectId ? (
-        <Script id="microsoft-clarity" strategy="afterInteractive">
-          {`(function(c,l,a,r,i,t,y){
+        <script
+          id="microsoft-clarity"
+          dangerouslySetInnerHTML={{
+            __html: `(function(c,l,a,r,i,t,y){
 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "${clarityProjectId}");`}
-        </Script>
+})(window, document, "clarity", "script", "${clarityProjectId}");`,
+          }}
+        />
       ) : null}
     </>
   );
