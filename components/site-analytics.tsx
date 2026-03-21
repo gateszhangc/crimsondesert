@@ -1,12 +1,4 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Script from "next/script";
-
-type AnalyticsConfig = {
-  googleAnalyticsId?: string;
-  clarityProjectId?: string;
-};
 
 function normalizeAnalyticsValue(value: string | undefined) {
   const normalized = value?.trim();
@@ -23,41 +15,8 @@ function normalizeAnalyticsValue(value: string | undefined) {
 }
 
 export function SiteAnalytics() {
-  const [config, setConfig] = useState<AnalyticsConfig | null>(null);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const loadConfig = async () => {
-      const response = await fetch("/api/site-analytics", {
-        cache: "no-store",
-        signal: controller.signal,
-      });
-
-      if (!response.ok) {
-        return;
-      }
-
-      const data = (await response.json()) as AnalyticsConfig;
-      setConfig({
-        googleAnalyticsId: normalizeAnalyticsValue(data.googleAnalyticsId),
-        clarityProjectId: normalizeAnalyticsValue(data.clarityProjectId),
-      });
-    };
-
-    void loadConfig().catch((error: unknown) => {
-      if (error instanceof DOMException && error.name === "AbortError") {
-        return;
-      }
-    });
-
-    return () => {
-      controller.abort();
-    };
-  }, []);
-
-  const googleAnalyticsId = config?.googleAnalyticsId;
-  const clarityProjectId = config?.clarityProjectId;
+  const googleAnalyticsId = normalizeAnalyticsValue(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID);
+  const clarityProjectId = normalizeAnalyticsValue(process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID);
 
   return (
     <>
