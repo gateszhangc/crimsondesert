@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect } from "react";
 import Script from "next/script";
 
 const fallbackGoogleAnalyticsId = "G-TD5HH2DCJL";
@@ -25,9 +28,43 @@ export function SiteAnalytics() {
     process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? fallbackClarityProjectId,
   );
 
+  useEffect(() => {
+    if (!clarityProjectId) {
+      return;
+    }
+
+    const existingScript = document.getElementById("microsoft-clarity-loader");
+
+    if (existingScript) {
+      return;
+    }
+
+    type ClarityFn = ((...args: unknown[]) => void) & { q?: unknown[][] };
+    const clarityWindow = window as Window & { clarity?: ClarityFn };
+
+    if (!clarityWindow.clarity) {
+      const shim: ClarityFn = (...args: unknown[]) => {
+        shim.q = shim.q || [];
+        shim.q.push(args);
+      };
+
+      clarityWindow.clarity = shim;
+    }
+
+    const script = document.createElement("script");
+    script.id = "microsoft-clarity-loader";
+    script.async = true;
+    script.src = `https://www.clarity.ms/tag/${clarityProjectId}`;
+    document.head.appendChild(script);
+  }, [clarityProjectId]);
+
   return (
     <>
-      <span hidden aria-hidden="true" data-site-analytics-root="" />
+      <span
+        hidden
+        aria-hidden="true"
+        data-site-analytics-root=""
+      />
       {googleAnalyticsId ? (
         <>
           <Script
@@ -46,19 +83,6 @@ gtag('js', new Date());
 gtag('config', '${googleAnalyticsId}');`}
           </Script>
         </>
-      ) : null}
-
-      {clarityProjectId ? (
-        <Script
-          id="microsoft-clarity"
-          strategy="afterInteractive"
-        >
-          {`(function(c,l,a,r,i,t,y){
-c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "${clarityProjectId}");`}
-        </Script>
       ) : null}
     </>
   );
