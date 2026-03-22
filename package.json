@@ -4,12 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
+    "preview:standalone": "bash scripts/run-standalone-preview.sh",
     "lint": "eslint",
     "verify:analytics": "bash scripts/verify-analytics-browser.sh",
     "verify:seo-copy": "bash scripts/verify-seo-copy-browser.sh",
-    "verify:seo-copy:local": "SEO_COPY_BASE_URL=http://127.0.0.1:3020 bash scripts/verify-seo-copy-browser.sh"
+    "verify:seo-copy:local": "BUILD=1 HOSTNAME=127.0.0.1 PORT=3021 bash scripts/with-standalone-preview.sh bash scripts/verify-seo-copy-browser.sh http://127.0.0.1:3021 30000 https://crimsondesert.lol",
+    "verify:production-parity": "bash scripts/verify-production-parity.sh",
+    "verify:production:live": "LIVE_BASE_URL=https://crimsondesert.lol bash scripts/verify-production-parity.sh"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",
