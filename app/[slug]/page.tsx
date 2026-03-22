@@ -27,7 +27,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: page.seoTitle,
+    title: {
+      absolute: page.seoTitle,
+    },
     description: page.seoDescription,
     alternates: {
       canonical: `/${page.slug}`,
@@ -112,13 +114,13 @@ export default async function KeywordPage({ params }: PageProps) {
               className="inline-flex items-center gap-2 text-sm font-medium text-white/58 transition hover:text-white"
             >
               <ArrowLeft className="size-4" />
-              Back to hub
+              Back to home
             </Link>
 
             <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#ddb27a]">
-                  {page.intentKeyword}
+                  {page.sectionLabel}
                 </p>
                 <h1 className="mt-4 max-w-4xl font-heading text-5xl font-semibold leading-[0.94] text-white sm:text-6xl">
                   {page.title}
@@ -130,8 +132,8 @@ export default async function KeywordPage({ params }: PageProps) {
                 <div className="mt-8 grid gap-4 sm:grid-cols-3">
                   {[
                     { label: "Last updated", value: formatDisplayDate(page.updatedAt) },
-                    { label: "Source count", value: `${page.sourceUrls.length} official links` },
-                    { label: "Query intent", value: page.intentKeyword },
+                    { label: "Official sources", value: `${page.sourceUrls.length} links` },
+                    { label: "Section", value: page.sectionLabel },
                   ].map((item) => (
                     <div
                       key={item.label}
@@ -149,14 +151,14 @@ export default async function KeywordPage({ params }: PageProps) {
               <Card className="border border-white/10 bg-[#101216]/88 py-0 shadow-[0_22px_70px_rgba(0,0,0,0.32)]">
                 <CardHeader className="border-b border-white/8 pb-5">
                   <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#ddb27a]">
-                    Where to verify
+                    Official references
                   </p>
                   <CardTitle className="font-heading text-3xl text-white">
-                    Jump straight to primary sources
+                    Open the source trail
                   </CardTitle>
                   <CardDescription className="leading-7 text-white/62">
-                    This page stays anchored to Pearl Abyss notices and the official Crimson Desert
-                    site.
+                    Launch notices, store pages, and official reference material sit behind this
+                    section so the practical details stay easy to verify.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3 pb-6">
@@ -235,7 +237,7 @@ export default async function KeywordPage({ params }: PageProps) {
                       FAQ
                     </p>
                     <CardTitle className="font-heading text-3xl text-white">
-                      Quick answers
+                      Support notes
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="pb-6">
@@ -250,7 +252,7 @@ export default async function KeywordPage({ params }: PageProps) {
                     Related pages
                   </p>
                   <CardTitle className="font-heading text-3xl text-white">
-                    Keep exploring the cluster
+                    Continue through Pywel
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3 pb-6">
@@ -263,7 +265,7 @@ export default async function KeywordPage({ params }: PageProps) {
                       <p className="text-sm font-medium text-white">{entry.title}</p>
                       <p className="mt-2 text-sm leading-6 text-white/58">{entry.description}</p>
                       <span className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-[#f0c790]">
-                        Open page
+                        Open section
                         <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
                       </span>
                     </Link>

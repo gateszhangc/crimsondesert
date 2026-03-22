@@ -8,8 +8,8 @@ export default function NotFound() {
         This trail ends here.
       </h1>
       <p className="mt-4 max-w-xl text-base leading-8 text-white/64">
-        The page you requested is not part of the Crimson Desert keyword hub. Head back to the
-        homepage and jump into one of the verified guide pages instead.
+        The page you requested is not part of this Crimson Desert companion. Head back to the
+        homepage and continue through the main sections instead.
       </p>
       <Link
         href="/"

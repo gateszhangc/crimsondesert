@@ -59,7 +59,7 @@ export default function OpenGraphImage() {
                 color: "#e6c190",
               }}
             >
-              Source-backed guide
+              Independent companion
             </div>
             <div
               style={{
@@ -73,13 +73,13 @@ export default function OpenGraphImage() {
             </div>
             <div
               style={{
-                fontSize: 30,
+                fontSize: 34,
                 lineHeight: 1.4,
                 color: "rgba(255,246,235,0.78)",
                 maxWidth: "760px",
               }}
             >
-              Release date, platforms, gameplay, characters, system requirements, and official FAQ.
+              A kingdom in ruin. A mercenary on the march.
             </div>
           </div>
 

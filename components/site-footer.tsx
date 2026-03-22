@@ -12,12 +12,12 @@ export function SiteFooter() {
             {siteConfig.domain}
           </p>
           <h2 className="mt-3 font-heading text-4xl font-semibold text-white">
-            Independent, not official.
+            An independent companion for the road into Pywel.
           </h2>
           <p className="mt-4 max-w-xl text-sm leading-7 text-white/58">
-            This site is an independent guide built around the Crimson Desert keyword cluster. It
-            is not affiliated with Pearl Abyss. Game facts, launch details, and product references
-            are attributed to official Pearl Abyss notices and the official Crimson Desert site.
+            This site is not affiliated with Pearl Abyss. It brings launch materials, support
+            notes, platform details, and official notices together in one place without blurring
+            the line between companion site and official publisher page.
           </p>
         </div>
 

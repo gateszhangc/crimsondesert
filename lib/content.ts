@@ -15,6 +15,7 @@ export type FaqItem = {
 };
 
 export type PageFrontmatter = {
+  sectionLabel: string;
   title: string;
   description: string;
   seoTitle: string;
@@ -95,6 +96,7 @@ function parseFrontmatter(data: Record<string, unknown>, slugHint: string): Page
   const slug = assertString(data.slug, "slug", slugHint);
 
   return {
+    sectionLabel: assertString(data.sectionLabel, "sectionLabel", slugHint),
     title: assertString(data.title, "title", slugHint),
     description: assertString(data.description, "description", slugHint),
     seoTitle: assertString(data.seoTitle, "seoTitle", slugHint),

@@ -1,4 +1,4 @@
-const defaultSiteName = "Crimson Desert Hub";
+const defaultSiteName = "Crimson Desert Guide";
 const defaultSiteUrl = "https://crimsondesert.lol";
 
 function normalizeSiteUrl(value: string | undefined) {
@@ -20,16 +20,17 @@ const siteName = process.env.NEXT_PUBLIC_PROJECT_NAME?.trim() || defaultSiteName
 
 export const siteConfig = {
   name: siteName,
+  brandName: "Crimson Desert",
   domain: new URL(siteUrl).hostname,
   url: siteUrl,
   language: "en-US",
   locale: "en_US",
   category: "games",
-  homeTitle: "Crimson Desert Release Date, Platforms, Gameplay and FAQ",
+  homeTitle: "Crimson Desert Guide: Release Date, Platforms, Launch FAQ",
   homeDescription:
-    "Independent Crimson Desert guide covering the confirmed release date, platform list, system requirements, gameplay breakdown, cast notes, and official launch FAQ.",
+    "Get the confirmed Crimson Desert release date, unlock time, platforms, and launch FAQ from official Pearl Abyss sources in one fast guide.",
   description:
-    "Independent, source-backed guide to Crimson Desert covering the release date, platforms, gameplay, characters, system requirements, and official FAQ.",
+    "Independent Crimson Desert companion covering the release date, platforms, world details, characters, performance notes, and launch support through official Pearl Abyss sources.",
   updatedAt: "2026-03-21",
   officialSiteUrl: "https://crimsondesert.pearlabyss.com/en-US/Main/Index",
   steamUrl: "https://store.steampowered.com/app/3321460/Crimson_Desert/",
@@ -37,7 +38,9 @@ export const siteConfig = {
   performanceUrl: "https://crimsondesert.pearlabyss.com/en-us/News/Notice/Detail?_boardNo=62",
   defaultKeywords: [
     "crimson desert",
+    "crimson desert guide",
     "crimson desert release date",
+    "crimson desert platforms",
     "crimson desert gameplay",
     "crimson desert characters",
     "crimson desert system requirements",
@@ -54,67 +57,112 @@ export const siteConfig = {
 } as const;
 
 export const navItems = [
-  { href: "/release-date", label: "Release Date" },
-  { href: "/gameplay", label: "Gameplay" },
+  { href: "/release-date", label: "Release" },
+  { href: "/gameplay", label: "World & Combat" },
   { href: "/characters", label: "Characters" },
   { href: "/platforms", label: "Platforms" },
-  { href: "/system-requirements", label: "System Requirements" },
-  { href: "/faq", label: "FAQ" },
+  { href: "/system-requirements", label: "Performance" },
+  { href: "/faq", label: "Support" },
 ];
+
+export const homeHero = {
+  eyebrow: "Pearl Abyss's open-world action-adventure",
+  title: "A kingdom in ruin. A mercenary on the march.",
+  description:
+    "Crimson Desert follows Kliff and the Greymanes across the fractured continent of Pywel, where siege warfare, roaming exploration, brutal combat, and hard-won survival all collide.",
+  primaryCta: {
+    href: "/gameplay",
+    label: "Enter Pywel",
+  },
+  secondaryCta: {
+    href: "/platforms",
+    label: "View platforms",
+  },
+  tertiaryCta: {
+    href: "/faq",
+    label: "Read launch support",
+  },
+} as const;
 
 export const keyFacts = [
   {
-    label: "Launch date",
+    label: "Worldwide launch",
     value: "March 19, 2026",
-    note: "Pearl Abyss confirmed a simultaneous worldwide launch in its official launch FAQ.",
+    note: "Pearl Abyss confirmed a simultaneous worldwide release across official launch materials.",
   },
   {
-    label: "Core pitch",
-    value: "Open-world action-adventure",
-    note: "Pearl Abyss consistently describes Crimson Desert as an open-world action-adventure set in Pywel.",
-  },
-  {
-    label: "Platforms",
+    label: "Confirmed platforms",
     value: "PS5, Xbox, PC, Mac, cloud",
-    note: "The official FAQ lists console, PC, Mac App Store, and GeForce NOW availability.",
+    note: "The launch FAQ confirms console, PC storefronts, Mac support, and GeForce NOW.",
+  },
+  {
+    label: "Full voiceover",
+    value: "EN / KR / Simplified Chinese",
+    note: "The launch FAQ lists full voice support in English, Korean, and Simplified Chinese.",
   },
 ];
 
+export const homeWorldPillars = [
+  {
+    title: "Pywel",
+    description:
+      "A fractured continent of wilderness, ruined strongholds, cities, and battlefields that Pearl Abyss treats as a place to cross, not just observe.",
+  },
+  {
+    title: "The Greymanes",
+    description:
+      "Kliff's scattered company gives the journey its emotional center, turning the campaign into a march to rebuild what has been broken.",
+  },
+  {
+    title: "Brutal Combat",
+    description:
+      "Weapons, chained skills, equipment growth, and heavy close-quarters action drive the official pitch for every major encounter.",
+  },
+  {
+    title: "Life Between Battles",
+    description:
+      "Camp life, downtime systems, and the wider rhythm of travel keep the world from collapsing into a string of boss fights.",
+  },
+] as const;
+
 export const quickStartLinks = [
   {
+    href: "/release-date",
+    title: "Launch Timeline",
+    description:
+      "From the State of Play reveal to the worldwide unlock, follow how Pearl Abyss framed the arrival.",
+    icon: "Compass",
+  },
+  {
     href: "/platforms",
-    title: "Where can you play it?",
-    description: "The official platform list and storefront coverage, including Steam, Epic, Mac App Store, and GeForce NOW.",
+    title: "Where You Can Play",
+    description:
+      "See the official console, PC, Mac, and cloud rollout before you choose a storefront.",
     icon: "MonitorPlay",
   },
   {
     href: "/faq",
-    title: "Need straight answers?",
-    description: "Launch timing, internet requirements, languages, controller support, and cross-save status from the official FAQ.",
+    title: "Launch Support",
+    description:
+      "Get the practical answers on setup, controllers, editions, languages, and cross-save.",
     icon: "CircleHelp",
-  },
-  {
-    href: "/gameplay",
-    title: "How does it actually play?",
-    description: "A source-backed breakdown of exploration, combat, progression, and life in Pywel.",
-    icon: "Compass",
   },
 ];
 
 export const sourceHighlights = [
+  {
+    title: "Release Date Notice",
+    date: "September 24, 2025",
+    summary:
+      "Pearl Abyss confirmed March 19, 2026 and tied the reveal to PlayStation State of Play.",
+    href: "https://crimsondesert.pearlabyss.com/en-US/News/Notice/Detail?_boardNo=50",
+  },
   {
     title: "Launch FAQ",
     date: "March 12, 2026",
     summary:
       "Launch timing, platform list, supported languages, internet requirement, controller support, and edition questions.",
     href: "https://crimsondesert.pearlabyss.com/en-us/News/Notice/Detail?_boardNo=63",
-  },
-  {
-    title: "Meet the Cast",
-    date: "February 28, 2026",
-    summary:
-      "Voice cast spotlight covering Alec Newman, Stewart Scudamore, and Rebecca Hanssen as Kliff, Oongka, and Damiane.",
-    href: "https://crimsondesert.pearlabyss.com/en-us/News/Notice/Detail?_boardNo=60",
   },
   {
     title: "Performance Specs",
@@ -129,17 +177,17 @@ export const homeFaq = [
   {
     question: "Is Crimson Desert out now?",
     answer:
-      "Yes. Pearl Abyss said Crimson Desert launches worldwide on March 19, 2026, and the official launch FAQ was published one week before release.",
+      "Yes. Pearl Abyss launched Crimson Desert worldwide on March 19, 2026, after publishing the official launch FAQ on March 12, 2026.",
   },
   {
     question: "What time did Crimson Desert unlock?",
     answer:
-      "The official FAQ listed a simultaneous launch at March 19, 15:00 PT and March 19, 22:00 GMT, which was March 20, 7:00 KST.",
+      "The official launch FAQ listed a simultaneous release at March 19, 2026 15:00 PT and March 19, 2026 22:00 GMT, which was March 20, 2026 7:00 KST.",
   },
   {
     question: "Does Crimson Desert require an internet connection?",
     answer:
-      "Yes for the initial setup and day-one patch. After installation, Pearl Abyss says the game can be enjoyed offline, but internet is still needed for future updates.",
+      "Yes. Pearl Abyss requires an internet connection for the initial setup and day-one patch. After installation, the game can be played offline, but future updates still need internet.",
   },
   {
     question: "Does Crimson Desert support cross-save?",

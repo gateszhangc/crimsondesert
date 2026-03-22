@@ -6,11 +6,41 @@ import { FaqList } from "@/components/faq-list";
 import { StructuredData } from "@/components/structured-data";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getAllPageSummaries, formatDisplayDate } from "@/lib/content";
-import { getSourceTitle, homeFaq, keyFacts, quickStartLinks, siteConfig, sourceHighlights } from "@/lib/site";
+import {
+  getSourceTitle,
+  homeFaq,
+  homeHero,
+  homeWorldPillars,
+  keyFacts,
+  quickStartLinks,
+  siteConfig,
+  sourceHighlights,
+} from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: siteConfig.homeTitle,
+  title: {
+    absolute: siteConfig.homeTitle,
+  },
   description: siteConfig.homeDescription,
+  alternates: {
+    canonical: "/",
+  },
+  keywords: [...siteConfig.defaultKeywords],
+  openGraph: {
+    type: "website",
+    title: siteConfig.homeTitle,
+    description: siteConfig.homeDescription,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.homeTitle,
+    description: siteConfig.homeDescription,
+    images: ["/opengraph-image"],
+  },
 };
 
 const sectionShell = "mx-auto w-full max-w-6xl px-6 lg:px-8";
@@ -76,53 +106,46 @@ export default async function HomePage() {
               <div>
                 <div className="mb-6 flex flex-wrap gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-[#e8be8a]">
                   <span className="rounded-full border border-[#f5c07d]/25 bg-[#f5c07d]/8 px-4 py-1.5 text-[#f6d8b2]">
-                    Independent guide
+                    Independent companion
                   </span>
                   <span className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-white/72">
-                    Live now on March 19, 2026 release
+                    Updated March 21, 2026
                   </span>
                 </div>
 
                 <p className="text-sm uppercase tracking-[0.32em] text-white/45">
-                  Source-backed keyword hub for Crimson Desert
+                  {homeHero.eyebrow}
                 </p>
                 <h1 className="mt-4 max-w-4xl font-heading text-5xl font-semibold leading-[0.9] text-white sm:text-6xl lg:text-7xl">
-                  Crimson Desert
-                  <span className="block text-[#d9a86b]">Launch facts, platform details, and guide pages</span>
+                  {siteConfig.brandName}
                 </h1>
+                <p className="mt-4 max-w-4xl font-heading text-3xl leading-[1.02] text-[#d9a86b] sm:text-4xl lg:text-5xl">
+                  {homeHero.title}
+                </p>
                 <p className="mt-6 max-w-2xl text-base leading-8 text-white/72 sm:text-lg">
-                  This site is built to answer the exact searches people make around{" "}
-                  <span className="text-white">Crimson Desert release date</span>, gameplay,
-                  characters, supported platforms, and system requirements using official Pearl
-                  Abyss sources instead of recycled rumor content.
+                  <span className="text-white">{siteConfig.brandName}</span> {homeHero.description}
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link
-                    href={siteConfig.officialSiteUrl}
-                    target="_blank"
-                    rel="noreferrer"
+                    href={homeHero.primaryCta.href}
                     className="inline-flex items-center gap-2 rounded-full bg-[#ddb37a] px-5 py-3 text-sm font-semibold text-[#19110f] transition hover:bg-[#edc391]"
                   >
-                    Official site
+                    {homeHero.primaryCta.label}
                     <ArrowRight className="size-4" />
                   </Link>
                   <Link
-                    href={siteConfig.steamUrl}
-                    target="_blank"
-                    rel="noreferrer"
+                    href={homeHero.secondaryCta.href}
                     className="inline-flex items-center gap-2 rounded-full border border-white/14 bg-white/6 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/28 hover:bg-white/10"
                   >
-                    Steam page
+                    {homeHero.secondaryCta.label}
                     <ArrowRight className="size-4" />
                   </Link>
                   <Link
-                    href={siteConfig.launchFaqUrl}
-                    target="_blank"
-                    rel="noreferrer"
+                    href={homeHero.tertiaryCta.href}
                     className="inline-flex items-center gap-2 rounded-full border border-transparent px-5 py-3 text-sm font-semibold text-white/74 transition hover:text-white"
                   >
-                    Launch FAQ
+                    {homeHero.tertiaryCta.label}
                     <ArrowRight className="size-4" />
                   </Link>
                 </div>
@@ -148,55 +171,60 @@ export default async function HomePage() {
                 <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#111317]/88 p-6 shadow-[0_30px_120px_rgba(0,0,0,0.4)]">
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ebb375] to-transparent" />
                   <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#e1b77e]">
-                    Verified timeline
+                    The launch frame
                   </p>
-                  <div className="mt-5 space-y-4">
+                  <h2 className="mt-4 font-heading text-3xl font-semibold text-white">
+                    Built from official material, not rumor loops
+                  </h2>
+                  <p className="mt-3 text-sm leading-7 text-white/64">
+                    This companion keeps the launch, platforms, performance notes, and support
+                    details close to the pages Pearl Abyss actually published.
+                  </p>
+                  <div className="mt-5 space-y-3">
                     {[
-                      {
-                        date: "Sep 24, 2025",
-                        title: "Release date revealed",
-                        detail: "Pearl Abyss confirmed March 19, 2026 during PlayStation State of Play.",
-                      },
-                      {
-                        date: "Jan 22, 2026",
-                        title: "Gone gold",
-                        detail: "The official site and Pearl Abyss newsroom both announced the milestone.",
-                      },
-                      {
-                        date: "Mar 12, 2026",
-                        title: "Launch FAQ published",
-                        detail: "Launch timing, platforms, supported languages, and internet requirements were clarified.",
-                      },
-                    ].map((event) => (
+                      "Release timing stays tied to the official date notice and launch FAQ.",
+                      "Platforms and storefronts come from Pearl Abyss launch materials.",
+                      "Performance details stay inside the official specs page instead of padded guesswork.",
+                    ].map((item) => (
                       <div
-                        key={event.title}
-                        className="rounded-[1.5rem] border border-white/8 bg-black/18 p-4"
+                        key={item}
+                        className="rounded-[1.35rem] border border-white/8 bg-black/18 px-4 py-3 text-sm leading-6 text-white/72"
                       >
-                        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/42">
-                          {event.date}
-                        </p>
-                        <h2 className="mt-2 font-heading text-2xl font-semibold text-white">
-                          {event.title}
-                        </h2>
-                        <p className="mt-2 text-sm leading-6 text-white/66">{event.detail}</p>
+                        {item}
                       </div>
                     ))}
                   </div>
                   <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                    {quickStartLinks.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className="group rounded-[1.4rem] border border-white/8 bg-white/4 p-4 transition hover:border-[#f0ba82]/25 hover:bg-white/8"
-                      >
-                        <p className="text-sm font-semibold text-white">{item.title}</p>
-                        <p className="mt-2 text-sm leading-6 text-white/58">{item.description}</p>
-                        <span className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-[#f0c790]">
-                          Open page
-                          <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
-                        </span>
-                      </Link>
-                    ))}
+                    <Link
+                      href={siteConfig.officialSiteUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group rounded-[1.4rem] border border-white/8 bg-white/4 p-4 transition hover:border-[#f0ba82]/25 hover:bg-white/8"
+                    >
+                      <p className="text-sm font-semibold text-white">Official site</p>
+                      <p className="mt-2 text-sm leading-6 text-white/58">
+                        Open Pearl Abyss&apos;s main Crimson Desert page.
+                      </p>
+                      <span className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-[#f0c790]">
+                        Visit official site
+                        <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+                      </span>
+                    </Link>
+                    <Link
+                      href={siteConfig.steamUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group rounded-[1.4rem] border border-white/8 bg-white/4 p-4 transition hover:border-[#f0ba82]/25 hover:bg-white/8"
+                    >
+                      <p className="text-sm font-semibold text-white">Storefront</p>
+                      <p className="mt-2 text-sm leading-6 text-white/58">
+                        Jump to the Steam listing and release details.
+                      </p>
+                      <span className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-[#f0c790]">
+                        Open Steam page
+                        <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+                      </span>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -209,20 +237,60 @@ export default async function HomePage() {
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div className="max-w-2xl">
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#d8ad76]">
-                  Intent coverage
+                  The world of Crimson Desert
                 </p>
                 <h2 className="mt-3 font-heading text-4xl font-semibold text-white">
-                  The keyword cluster, page by page
+                  A march shaped by four forces
                 </h2>
                 <p className="mt-3 text-base leading-7 text-white/64">
-                  Each page targets a specific Crimson Desert search intent and links back into the
-                  rest of the cluster for internal SEO depth.
+                  The official pitch lands because it keeps one foot in scale and one foot in
+                  survival: a broken company, a continent in chaos, and a campaign that keeps
+                  widening as you ride deeper into Pywel.
                 </p>
               </div>
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/58">
                 <Compass className="size-4 text-[#d8ad76]" />
-                Static Next.js pages with MDX-backed content
+                Built to feel like a destination first, a guide second
               </div>
+            </div>
+
+            <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              {homeWorldPillars.map((pillar) => (
+                <Card
+                  key={pillar.title}
+                  className="border border-white/10 bg-white/5 py-0 shadow-[0_18px_60px_rgba(0,0,0,0.18)]"
+                >
+                  <CardHeader className="border-b border-white/8 pb-5">
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[#d8ad76]">
+                      Pillar
+                    </p>
+                    <CardTitle className="font-heading text-3xl text-white">
+                      {pillar.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pb-5">
+                    <p className="text-sm leading-7 text-white/64">{pillar.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-6 sm:py-8">
+          <div className={sectionShell}>
+            <div className="max-w-2xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#d8ad76]">
+                Explore the campaign
+              </p>
+              <h2 className="mt-3 font-heading text-4xl font-semibold text-white">
+                Every section keeps the fantasy intact
+              </h2>
+              <p className="mt-3 text-base leading-7 text-white/64">
+                These pages still carry the release facts, platform details, and launch support
+                players need, but they now enter through the world, the cast, and the journey
+                instead of flat utility prompts.
+              </p>
             </div>
 
             <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -233,7 +301,7 @@ export default async function HomePage() {
                 >
                   <CardHeader className="border-b border-white/8 pb-5">
                     <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[#d8ad76]">
-                      {page.intentKeyword}
+                      {page.sectionLabel}
                     </p>
                     <CardTitle className="font-heading text-3xl text-white">{page.title}</CardTitle>
                     <CardDescription className="leading-6 text-white/62">
@@ -249,7 +317,7 @@ export default async function HomePage() {
                       href={`/${page.slug}`}
                       className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-[#f1c78f]"
                     >
-                      Read the page
+                      Open section
                       <ArrowRight className="size-4" />
                     </Link>
                   </CardContent>
@@ -259,30 +327,30 @@ export default async function HomePage() {
           </div>
         </section>
 
-        <section className="py-6 sm:py-8">
+        <section className="py-16 sm:py-20">
           <div className={`${sectionShell} grid gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]`}>
             <Card className="border border-white/10 bg-white/5 py-0">
               <CardHeader className="border-b border-white/8 pb-5">
                 <div className="flex items-center gap-3 text-[#d8ad76]">
                   <ShieldCheck className="size-5" />
                   <p className="text-xs font-semibold uppercase tracking-[0.28em]">
-                    What stays factual here
+                    Availability
                   </p>
                 </div>
                 <CardTitle className="font-heading text-3xl text-white">
-                  No rumor recycling
+                  What the launch materials confirm
                 </CardTitle>
                 <CardDescription className="leading-7 text-white/64">
-                  This site only leans on official notices, feature overviews, and Pearl Abyss press
-                  releases. If something is not confirmed, it is marked as not officially confirmed.
+                  When the page needs to get practical, it drops straight into the concrete
+                  details: release timing, platform coverage, hardware notes, and support answers
+                  that Pearl Abyss already published.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4 pb-6">
                 {[
-                  "Release and launch timing",
-                  "Platform and storefront availability",
-                  "System requirements and performance notes",
-                  "Cast, gameplay, and world details from official feature videos",
+                  "A simultaneous worldwide unlock at March 19, 2026 15:00 PT / 22:00 GMT.",
+                  "Platform coverage across PlayStation 5, Xbox Series X|S, Xbox on PC, Steam, Epic, Mac App Store, and GeForce NOW.",
+                  "Support guidance covering internet requirements, controllers, languages, editions, and cross-save.",
                 ].map((item) => (
                   <div
                     key={item}
@@ -291,6 +359,24 @@ export default async function HomePage() {
                     {item}
                   </div>
                 ))}
+                <div className="grid gap-3 pt-2 sm:grid-cols-2">
+                  <Link
+                    href={siteConfig.officialSiteUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-[1.2rem] border border-white/10 bg-white/4 px-4 py-3 text-sm font-medium text-white transition hover:border-[#f0ba82]/25"
+                  >
+                    Official site
+                  </Link>
+                  <Link
+                    href={siteConfig.steamUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-[1.2rem] border border-white/10 bg-white/4 px-4 py-3 text-sm font-medium text-white transition hover:border-[#f0ba82]/25"
+                  >
+                    Steam page
+                  </Link>
+                </div>
               </CardContent>
             </Card>
 
@@ -312,7 +398,7 @@ export default async function HomePage() {
                       )}
                     </div>
                     <span className="text-xs font-semibold uppercase tracking-[0.28em] text-white/38">
-                      Internal page
+                      Launch detail
                     </span>
                   </div>
                   <h3 className="mt-6 font-heading text-3xl font-semibold text-white">
@@ -320,7 +406,7 @@ export default async function HomePage() {
                   </h3>
                   <p className="mt-3 text-sm leading-7 text-white/62">{item.description}</p>
                   <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#f0c790]">
-                    Explore
+                    Open section
                     <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
                   </span>
                 </Link>
@@ -333,14 +419,14 @@ export default async function HomePage() {
           <div className={sectionShell}>
             <div className="max-w-2xl">
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#d8ad76]">
-                Official watchlist
+                Official dispatches
               </p>
               <h2 className="mt-3 font-heading text-4xl font-semibold text-white">
-                The notices worth linking to
+                The notices worth opening
               </h2>
               <p className="mt-3 text-base leading-7 text-white/64">
-                These are the source pages that currently anchor the strongest Crimson Desert
-                searches.
+                The site still keeps a clean source trail. These are the main Pearl Abyss pages
+                behind the biggest claims on launch, platforms, and performance.
               </p>
             </div>
 
@@ -367,7 +453,7 @@ export default async function HomePage() {
                       rel="noreferrer"
                       className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#f0c790]"
                     >
-                      Open official source
+                      Open official notice
                       <ArrowRight className="size-4" />
                     </Link>
                   </CardContent>
@@ -382,14 +468,14 @@ export default async function HomePage() {
             <div className="grid gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#d8ad76]">
-                  FAQ preview
+                  Before you ride out
                 </p>
                 <h2 className="mt-3 font-heading text-4xl font-semibold text-white">
-                  Questions official sources already answered
+                  The practical questions still matter
                 </h2>
                 <p className="mt-3 max-w-xl text-base leading-7 text-white/64">
-                  These answers are based on Pearl Abyss launch notices and are the best candidate
-                  snippets for FAQ-style search intent.
+                  Once the world, combat, and launch frame are clear, these are the last checks
+                  players usually make before downloading, buying, or choosing a platform.
                 </p>
               </div>
               <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 sm:p-8">

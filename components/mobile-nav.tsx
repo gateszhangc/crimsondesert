@@ -19,10 +19,10 @@ export function MobileNav() {
       >
         <SheetHeader className="border-b border-white/8 pb-5">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#ddb27a]">
-            Crimson Desert Hub
+            {siteConfig.brandName}
           </p>
           <SheetTitle className="font-heading text-3xl font-semibold text-white">
-            Browse the keyword pages
+            Step into the campaign
           </SheetTitle>
         </SheetHeader>
 
@@ -44,7 +44,7 @@ export function MobileNav() {
               rel="noreferrer"
               className="block rounded-[1.2rem] bg-[#ddb37a] px-4 py-3 text-sm font-semibold text-[#19110f]"
             >
-              Official site
+              Open official site
             </Link>
             <Link
               href={siteConfig.steamUrl}
@@ -52,7 +52,7 @@ export function MobileNav() {
               rel="noreferrer"
               className="block rounded-[1.2rem] border border-white/10 bg-white/4 px-4 py-3 text-sm font-semibold text-white"
             >
-              Steam page
+              Open Steam page
             </Link>
           </div>
         </div>

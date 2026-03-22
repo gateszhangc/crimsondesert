@@ -13,9 +13,11 @@ export function SiteHeader() {
               CD
             </span>
             <span className="min-w-0">
-              <span className="block truncate text-sm font-semibold text-white">{siteConfig.name}</span>
+              <span className="block truncate text-sm font-semibold text-white">
+                {siteConfig.brandName}
+              </span>
               <span className="block truncate text-xs uppercase tracking-[0.24em] text-white/34">
-                Crimson Desert keyword hub
+                Independent launch companion
               </span>
             </span>
           </Link>
@@ -40,7 +42,7 @@ export function SiteHeader() {
             rel="noreferrer"
             className="rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-white transition hover:border-white/24 hover:bg-white/10"
           >
-            Official site
+            Open official site
           </Link>
           <Link
             href={siteConfig.steamUrl}
@@ -48,7 +50,7 @@ export function SiteHeader() {
             rel="noreferrer"
             className="rounded-full bg-[#ddb37a] px-4 py-2.5 text-sm font-semibold text-[#19110f] transition hover:bg-[#edc391]"
           >
-            Steam page
+            Open Steam page
           </Link>
         </div>
 
