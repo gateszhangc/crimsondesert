@@ -17,13 +17,13 @@ BASE_URL="${PRIMARY_INPUT%/}"
 CANONICAL_BASE_URL="${CANONICAL_BASE_INPUT%/}"
 
 echo "[verify] ensure Playwright Chromium runtime"
-npx --yes playwright@latest install chromium >/dev/null
+npx playwright install chromium >/dev/null
 
 echo "[verify] browser-check SEO copy: $BASE_URL"
 BASE_URL="$BASE_URL" \
 CANONICAL_BASE_URL="$CANONICAL_BASE_URL" \
 TIMEOUT_MS="$TIMEOUT_MS" \
-npx --yes --package=playwright node <<'NODE'
+node <<'NODE'
 const { chromium } = require("playwright");
 
 const baseUrl = process.env.BASE_URL;
@@ -48,6 +48,12 @@ const routes = [
       "Open answer",
       "Find the answer, then check the source.",
     ],
+    primaryCta: {
+      label: "One-click deploy",
+      href: "https://www.easyclaw.pro/",
+      target: "_blank",
+      relIncludes: "noreferrer",
+    },
   },
   {
     path: "/release-date",
@@ -140,6 +146,12 @@ function assertExcludes(haystack, needle, context) {
             .trim()
         : "",
       body: document.body.innerText.replace(/\s+/g, " ").trim(),
+      links: Array.from(document.querySelectorAll("a")).map((link) => ({
+        label: link.textContent?.replace(/\s+/g, " ").trim() ?? "",
+        href: link.href,
+        target: link.target,
+        rel: link.rel,
+      })),
     }));
 
     if (details.title !== route.title) {
@@ -178,6 +190,28 @@ function assertExcludes(haystack, needle, context) {
 
     for (const needle of route.bodyExcludes ?? []) {
       assertExcludes(details.body, needle, `${route.path} body`);
+    }
+
+    if (route.primaryCta) {
+      const primaryCta = details.links.find((link) => link.label === route.primaryCta.label);
+
+      if (!primaryCta) {
+        throw new Error(`${route.path} missing primary CTA "${route.primaryCta.label}"`);
+      }
+
+      if (primaryCta.href !== route.primaryCta.href) {
+        throw new Error(
+          `${route.path} primary CTA href mismatch: expected "${route.primaryCta.href}" but found "${primaryCta.href}"`,
+        );
+      }
+
+      if (primaryCta.target !== route.primaryCta.target) {
+        throw new Error(
+          `${route.path} primary CTA target mismatch: expected "${route.primaryCta.target}" but found "${primaryCta.target}"`,
+        );
+      }
+
+      assertIncludes(primaryCta.rel, route.primaryCta.relIncludes, `${route.path} primary CTA rel`);
     }
 
     await page.close();

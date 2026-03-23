@@ -47,6 +47,9 @@ const sectionShell = "mx-auto w-full max-w-6xl px-6 lg:px-8";
 
 export default async function HomePage() {
   const pages = await getAllPageSummaries();
+  const primaryCtaIsExternal =
+    homeHero.primaryCta.href.startsWith("http://") ||
+    homeHero.primaryCta.href.startsWith("https://");
 
   const websiteSchema = {
     "@context": "https://schema.org",
@@ -129,6 +132,8 @@ export default async function HomePage() {
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link
                     href={homeHero.primaryCta.href}
+                    target={primaryCtaIsExternal ? "_blank" : undefined}
+                    rel={primaryCtaIsExternal ? "noreferrer" : undefined}
                     className="inline-flex items-center gap-2 rounded-full bg-[#ddb37a] px-5 py-3 text-sm font-semibold text-[#19110f] transition hover:bg-[#edc391]"
                   >
                     {homeHero.primaryCta.label}

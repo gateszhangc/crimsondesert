@@ -71,8 +71,8 @@ export const homeHero = {
   description:
     "Crimson Desert follows Kliff and the Greymanes across the fractured continent of Pywel, where siege warfare, roaming exploration, brutal combat, and hard-won survival all collide.",
   primaryCta: {
-    href: "/gameplay",
-    label: "Enter Pywel",
+    href: "https://www.easyclaw.pro",
+    label: "One-click deploy",
   },
   secondaryCta: {
     href: "/platforms",

@@ -13,14 +13,14 @@ fi
 BASE_URL="${PRIMARY_INPUT%/}"
 
 echo "[verify] ensure Playwright Chromium runtime"
-npx --yes playwright@latest install chromium >/dev/null
+npx playwright install chromium >/dev/null
 
 echo "[verify] browser-check analytics: $BASE_URL/"
 BASE_URL="$BASE_URL" \
 TIMEOUT_MS="$TIMEOUT_MS" \
 EXPECTED_GA_ID="$EXPECTED_GA_ID" \
 EXPECTED_CLARITY_ID="$EXPECTED_CLARITY_ID" \
-npx --yes --package=playwright node <<'NODE'
+node <<'NODE'
 const { chromium } = require("playwright");
 
 const baseUrl = process.env.BASE_URL;

@@ -144,7 +144,7 @@ if [[ "$standalone_css_sha" != "$container_css_sha" ]]; then
 fi
 
 BASE_URL="$STANDALONE_BASE_URL" SCREENSHOT_PATH="$standalone_screenshot" TIMEOUT_MS="$TIMEOUT_MS" \
-  npx --yes --package=playwright node <<'NODE'
+  node <<'NODE'
 const { chromium } = require("playwright");
 
 (async () => {
@@ -166,7 +166,7 @@ const { chromium } = require("playwright");
 NODE
 
 BASE_URL="$CONTAINER_BASE_URL" SCREENSHOT_PATH="$container_screenshot" TIMEOUT_MS="$TIMEOUT_MS" \
-  npx --yes --package=playwright node <<'NODE'
+  node <<'NODE'
 const { chromium } = require("playwright");
 
 (async () => {
@@ -209,7 +209,7 @@ if [[ -n "$LIVE_BASE_URL" ]]; then
   fi
 
   BASE_URL="$LIVE_BASE_URL" SCREENSHOT_PATH="$live_screenshot" TIMEOUT_MS="$TIMEOUT_MS" \
-    npx --yes --package=playwright node <<'NODE'
+    node <<'NODE'
 const { chromium } = require("playwright");
 
 (async () => {
